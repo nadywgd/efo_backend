@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Fetch data from the API
-        response = requests.get('https://www.ebi.ac.uk/ols/api/ontologies/efo/terms')
+        response = requests.get('https://www.ebi.ac.uk/ols/api/ontologies/efo/terms?size=100')
         
         if response.status_code != 200:
             self.stdout.write(self.style.ERROR('Failed to fetch data from the API'))
@@ -19,7 +19,7 @@ class Command(BaseCommand):
         for term in terms:
             # Create the Term entry
             efo_term = Term.objects.create(
-                iri=term['iri'],  # Use 'iri' for the primary key
+                iri=term['iri'],
                 label=term['label'],
                 description=', '.join(term.get('description', [])),
                 gwas_trait=term.get('gwas_trait', False),
@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 ontology_prefix=term['ontology_prefix'],
                 ontology_iri=term['ontology_iri'],
                 is_obsolete=term.get('is_obsolete', False),
-                term_replaced_by=None,  # Adjust this as per your logic
+                term_replaced_by=None,
                 is_defining_ontology=term.get('is_defining_ontology', False),
                 has_children=term.get('has_children', False),
                 is_root=term.get('is_root', False),
