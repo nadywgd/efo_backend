@@ -3,7 +3,7 @@ from .models import Term, Synonym
 from .serializers import TermSerializer, SynonymSerializer
 
 class TermViewSet(viewsets.ModelViewSet):
-    queryset = Term.objects.all()
+    queryset = Term.objects.all().order_by('label')
     serializer_class = TermSerializer
 
 class SynonymViewSet(viewsets.ModelViewSet):
