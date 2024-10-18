@@ -25,7 +25,7 @@ cd efo_backend
 We use PostgreSQL for the database. Start it using Docker:
 
 ```bash
-docker-compose up -d
+sudo docker compose up -d
 ```
 
 This will start a PostgreSQL container in the background.
